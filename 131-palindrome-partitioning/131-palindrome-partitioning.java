@@ -8,6 +8,7 @@ class Solution {
         int n=s.length();
         if(ind>=n){
             res.add(new ArrayList<>(temp));
+            return;
         }
         for(int i=ind;i<s.length();i++){
             if(isok(ind,i,s)){
