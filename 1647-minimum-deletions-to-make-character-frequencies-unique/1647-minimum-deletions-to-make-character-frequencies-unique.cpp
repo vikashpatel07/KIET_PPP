@@ -7,26 +7,19 @@ public:
         for(auto x: mp)a.push_back(x.second);
         sort(a.begin(),a.end(),greater<int>());
         int freq[100001]={0};
-        int res=0;
-        for(int i=0;i<a.size();i++){
-            if(freq[a[i]]==1){
-                int j=a[i],flag=0;
-                while(freq[j]!=0){
-                    j--;
-                    if(j==-1){
-                        flag=1;
-                        break;
-                    }
-                    // cout<<"v  ";
-                }
-                if(flag)res+=a[i];
-                else{
-                    res+=a[i]-j;
-                    freq[j]=1;
-                    }
-            
+        int res=0,count=a[0];
+        for(int i=1;i<a.size();i++){
+           if(count==0)res+=a[i];
+            else if(count==a[i]){
+                res++;
+                count=a[i]-1;
             }
-            else freq[a[i]]=1;
+            else if(count<a[i]){
+                res+=abs(count-a[i])+1;
+                count--;
+            }
+            else count=a[i];
+            
         }
         return res;
         
