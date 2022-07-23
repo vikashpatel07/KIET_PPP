@@ -12,53 +12,24 @@ class Solution {
 public:
     int length(ListNode* root){
         int count=0;
-        while(root!=NULL){
+        while(root){
             count++;
             root=root->next;
         }
         return count;
     }
-    ListNode* oh=NULL,*ot=NULL,*th=NULL,*tt=NULL;
-    void add(ListNode* root){
-        if(th==NULL){
-            th=root;
-            tt=root;
-        }
-        else{
-            root->next=th;
-            th=root;
-        }
-    }
     ListNode* reverseKGroup(ListNode* head, int k) {
         int len=length(head);
-        while(len>0){
-            if(len-k>=0){
-                int cnt=k;
-                while(cnt--){
-                    ListNode* temp=head->next;
-                    head->next=NULL;
-                    add(head);
-                    head=temp;
-                }
-                len-=k;
-                if(oh==NULL){
-                    oh=th;
-                    ot=tt;
-                    
-            
-            }
-                else{
-                    ot->next=th;
-                    ot=tt;
-                    
-                }
-                th=NULL,tt=NULL;
+        if(len<k)return head;
+        int cnt=k;
+        ListNode* temp=NULL,*nh=NULL,*old=head;
+        while(cnt--){
+            temp=head->next;
+            head->next=nh;
+            nh=head;
+            head=temp;
         }
-        else{
-            ot->next=head;
-            break;
-        }
-        }
-            return oh;
+        if(head)old->next=reverseKGroup(head,k);
+        return nh;
     }
 };
