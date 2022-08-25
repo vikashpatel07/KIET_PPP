@@ -25,13 +25,13 @@ public:
         
     }
     ListNode* reverseList(ListNode* head) {
-        ListNode* temp=head;
+        ListNode* temp=head,*dummy=NULL;;
         while(head){
-            temp=head->next;
-            head->next=NULL;
-            add(head);
+           temp=head->next;
+            head->next=dummy;
+            dummy=head;
             head=temp;
         }
-        return oh;
+        return dummy;
     }
 };
