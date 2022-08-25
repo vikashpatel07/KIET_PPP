@@ -10,24 +10,27 @@
  */
 class Solution {
 public:
-    ListNode*oh=NULL,*ot=NULL;
-    void add(ListNode* root){
+    ListNode* oh=NULL,*ot=NULL;
+    void add(ListNode* head){
         if(oh==NULL){
-            oh=root;
-            ot=root;
+            oh=head;
+            ot=head;
         }
-        else{
-            root->next=oh;
-            oh=root;
+        else
+        {
+            head->next=oh;
+            oh=head;
         }
+            
+        
     }
     ListNode* reverseList(ListNode* head) {
-        while(head!=NULL){
-            ListNode* temp=head->next;
+        ListNode* temp=head;
+        while(head){
+            temp=head->next;
             head->next=NULL;
             add(head);
             head=temp;
-            
         }
         return oh;
     }
