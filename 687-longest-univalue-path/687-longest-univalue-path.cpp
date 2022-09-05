@@ -11,20 +11,17 @@
  */
 class Solution {
 public:
-  
-    int solve(TreeNode* root,int &res){
+    int res=0;
+    int solve(TreeNode* root,TreeNode* temp){
         if(!root)return 0;
-        int left=solve(root->left,res);
-        int right=solve(root->right,res);
-        if(!root->left || root->val!=root->left->val)left=0;
-        if(!root->right || root->val!=root->right->val)right=0;
-        res=max(res,left+right);
-        return max(left,right)+1;
-        
+        int left=solve(root->left,root);
+        int right=solve(root->right,root);
+        res=max(left+right,res);
+        if(temp && temp->val==root->val)return max(left,right)+1;
+        else return 0;
     }
     int longestUnivaluePath(TreeNode* root) {
-        int res=0;
-        solve(root,res);
+        int x=solve(root,NULL);
         return res;
     }
 };
