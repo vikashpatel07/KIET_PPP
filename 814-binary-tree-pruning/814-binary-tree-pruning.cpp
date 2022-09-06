@@ -11,13 +11,18 @@
  */
 class Solution {
 public:
+    bool solve(TreeNode* root){
+        if(!root)return false;
+        if(root->val==1)return  true;
+        return solve(root->left) || solve(root->right);
+    }
     TreeNode* pruneTree(TreeNode* root) {
         if(!root)return NULL;
-        TreeNode* left=pruneTree(root->left);
-        root->left=left;
-        TreeNode* right=pruneTree(root->right);
-        root->right=right;
-        if(root->val==0 && !root->left && !root->right)return NULL;
+        if(!solve(root)){
+            return NULL;
+        }
+        root->left=pruneTree(root->left);
+        root->right=pruneTree(root->right);
         return root;
     }
 };
