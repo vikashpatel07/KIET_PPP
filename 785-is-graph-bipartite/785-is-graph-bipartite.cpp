@@ -1,19 +1,13 @@
 class Solution {
 public:
     bool solve(int node,vector<int> &col,vector<int> adj[]){
-        queue<int>q;
-        col[node]=1;
-        q.push(node);
-        while(!q.empty()){
-            auto x=q.front();
-            q.pop();
-            for(auto y: adj[x]){
-                if(col[y]==-1){
-                    q.push(y);
-                    col[y]=1-col[x];
-                }
-                else if(col[x]==col[y])return false;
+        
+        for(auto x: adj[node]){
+            if(col[x]==-1){
+               col[x]=1-col[node];
+                if(solve(x,col,adj)==false)return false;
             }
+            else if(col[x]==col[node])return false;
         }
         return true;
     }
@@ -28,6 +22,7 @@ public:
         vector<int>col(n,-1);
         for(int i=0;i<n;i++){
             if(col[i]==-1){
+                col[i]=1;
                 if(solve(i,col,adj)==false)return false;
             }
         }
