@@ -9,8 +9,7 @@ public:
            for(int d=0;d<4;d++){
                int x=i+dir[d][0];
                int y=j+dir[d][1];
-               if(x<0 || x>=n || y<0 ||y>=m)continue;
-               if(abs(h[i][j]-h[x][y])<=mid)
+               if(x>=0 && x<n && y>=0 && y<m && abs(h[i][j]-h[x][y])<=mid)
                    dfs(x,y,vis,h,mid);
            }
         }
