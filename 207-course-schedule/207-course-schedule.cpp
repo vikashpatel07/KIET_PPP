@@ -22,9 +22,9 @@ public:
             auto x=q.front();
             q.pop();
             res.push_back(x);
-          
+            vis[x]=1;
             for(auto it: adj[x]){
-                ind[it]--;
+                if(!vis[it])ind[it]--;
                 if(ind[it]==0)q.push(it);
             }
             
