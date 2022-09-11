@@ -1,50 +1,36 @@
 class Solution {
 public:
-    bool isValid(vector<vector<int>>& h, int x, int y) {
-        return x < n and x >= 0 and y < m and y >= 0;
-    }
-	
-    bool recDFS(vector<vector<int>>& h, int k, int x, int y) {
-        visited[x][y] = true;
-        if (x == n-1 && y == m-1)
-            return true;
-            
-        for (int i = 0; i < 4; i++) {
-            int x_curr = x + x_points[i];
-            int y_curr = y + y_points[i];
-            if (isValid(h, x_curr, y_curr) && !visited[x_curr][y_curr] && abs(h[x_curr][y_curr] - h[x][y]) <= k)
-                if (recDFS(h, k, x_curr, y_curr)) return true;
+     int vis[105][105];
+    vector<pair<int,int>>dir={{1,0},{-1,0},{0,-1},{0,1}};
+    void ok(int x, int y,int mid , vector<vector<int>>& heights){
+        if(!vis[x][y]){
+            vis[x][y]=1;
+            int n=heights.size();
+            int m=heights[0].size();
+            for(int i=0;i<4;i++){
+                int X=x+dir[i].first;
+                int Y=y+dir[i].second;
+                if(X<0 || X>=n || Y<0 || Y>=m)
+                    continue;
+                if(abs(heights[x][y]-heights[X][Y])<=mid)
+                    ok(X,Y,mid,heights);
+            }
         }
-
-        return false;
-    }
-    
-    bool possibleLessEqK(vector<vector<int>>& h, int k) {
-        visited.assign(n,vector<bool> (m, false));
-        return recDFS(h, k, 0, 0);
     }
     
     int minimumEffortPath(vector<vector<int>>& heights) {
-        n = heights.size();
-        m = heights[0].size();
-        
-        int lo = 0, hi = 1e6, mid;
-        while (lo < hi) {
-            mid = lo + (hi - lo) / 2;
-            
-            if (possibleLessEqK(heights, mid))
-                hi = mid;
-            else 
-                lo = mid + 1;
+        int l=0,r=1e9+2;
+        int n=heights.size();
+        int m=heights[0].size();
+        while(l<r){
+            int mid=(l+r)/2;
+            memset(vis,0,sizeof(vis));
+            ok(0,0,mid,heights);
+            if(vis[n-1][m-1]==1)
+                r=mid;
+            else
+                l=mid+1;
         }
-        
-        return lo;
+        return l;
     }
-    
-private:
-    vector<vector<bool>> visited;
-    vector<int> x_points = {1, 0, -1, 0};
-    vector<int> y_points = {0, 1, 0, -1};
-    int n;
-    int m;
 };
