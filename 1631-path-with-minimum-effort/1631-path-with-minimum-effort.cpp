@@ -1,14 +1,14 @@
 class Solution {
 public:
-    vector<pair<int,int>>dir={{-1,0},{0,-1},{0,1},{1,0}};
+    vector<vector<int>>dir={{-1,0},{0,-1},{0,1},{1,0}};
     void dfs(int i,int j, vector<vector<int>> &vis,vector<vector<int>> &h,int mid){
         int n=h.size();
         int m=h[0].size();
         if(!vis[i][j]){
             vis[i][j]=1;
            for(int d=0;d<4;d++){
-               int x=i+dir[d].first;
-               int y=j+dir[d].second;
+               int x=i+dir[d][0];
+               int y=j+dir[d][1];
                if(x<0 || x>=n || y<0 ||y>=m)continue;
                if(abs(h[i][j]-h[x][y])<=mid)
                    dfs(x,y,vis,h,mid);
