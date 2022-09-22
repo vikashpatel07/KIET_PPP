@@ -12,7 +12,7 @@ public:
                 if(A[ch]<=B[ch])
                     count++;
             }
-            if(count>=t.length()){
+            if(count==t.length()){
                 while(B.find(s[i])==B.end()  || A[s[i]]>B[s[i]]){
                     A[s[i]]--;
                     i++;
@@ -20,8 +20,13 @@ public:
                 if(res>j-i+1){
                     ans=s.substr(i,j-i+1);
                     res=j-i+1;
+                    
                 }
-                // i++;
+              if(B.find(s[i])!=B.end()  && A[s[i]]>B[s[i]]){
+                  A[i]--;
+                   i++;
+              }
+               
             }
             j++;
         }
