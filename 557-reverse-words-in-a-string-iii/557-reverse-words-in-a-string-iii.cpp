@@ -6,7 +6,8 @@ public:
         string word;
         while(ss>>word){
         reverse(word.begin(),word.end());
-            res=res+word+" ";
+            res+=word+' ';
+            // res+=" ";
         }
         res.pop_back();
         return res;
