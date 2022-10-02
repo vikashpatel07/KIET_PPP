@@ -18,9 +18,20 @@ public:
 
     }
     int numRollsToTarget(int n, int k, int target) {
-        // int a=solve(n,k,target);
         
-        vector<vector<int>>dp(n+1,vector<int>(target+1,-1));
-        return solve(n,k,target,dp);
+        vector<vector<int>>dp(n+1,vector<int>(target+1,0));
+        
+        dp[0][0]=1;
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=target;j++){
+                int maxi=0;
+                for(int m=1;m<=k;m++){
+                    if(j-m>=0)
+                    maxi=(maxi%mod+dp[i-1][j-m])%mod;
+                }
+                dp[i][j]=maxi;
+            }
+        }
+        return dp[n][target];
     }
 };
